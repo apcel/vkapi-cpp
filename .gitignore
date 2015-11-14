@@ -1,0 +1,4 @@
+token
+*.o
+onj/*
+bin/*
