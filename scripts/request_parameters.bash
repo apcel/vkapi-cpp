@@ -6,5 +6,5 @@ PARAMETERS=`perl -pe 's/^(.*?)\n/ \"&$1=\" + $1 + /' $1`
 PARAMETERS=`echo $PARAMETERS | perl -pe 's/^\"\&/\"/' | perl -pe 's/\s*\+\s*$//'`
 # echo $PARAMETERS
 # PARAMETERS=`echo $PARAMETERS | perl -pe 's/(.*),\s*/$1/; $_=$1'`
-REQUEST_CMD="request(\"$METHOD_NAME\", $PARAMETERS);"
+[ -z "$PARAMETERS" ] && REQUEST_CMD="request(\"$METHOD_NAME\");" || REQUEST_CMD="request(\"$METHOD_NAME\", $PARAMETERS);"
 echo -e " {\n\t$REQUEST_CMD\n}"
