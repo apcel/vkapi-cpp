@@ -8,7 +8,8 @@ CURL=`pkg-config libcurl --cflags --libs`
 LIBS=$(CURL)
 
 OBJS=../obj/main.o\
-	../obj/https.o
+	../obj/https.o\
+	../obj/vkapi.o
 
 
 BUILD_DIRECTORIES=../obj\
@@ -26,7 +27,8 @@ $(VKAPI): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
 ../obj/https.o: https.cpp https.h
 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
-
+../obj/vkapi.o: vkapi.cpp vkapi.h
+	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
 
 #######################################################################
 folders: $(BUILD_DIRECTORIES)
