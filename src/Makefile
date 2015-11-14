@@ -21,7 +21,7 @@ all: folders $(VKAPI)
 $(VKAPI): $(OBJS)
 	$(CXX) $(CXXFLAGS) -w $(OBJS) -o $(VKAPI) $(LIBS)
 
-obj/main.o: main.cpp
+../obj/main.o: main.cpp
 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
 
 
