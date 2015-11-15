@@ -25,9 +25,9 @@ $(VKAPI): $(OBJS)
 
 ../obj/main.o: main.cpp
 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
-../obj/https.o: https.cpp https.h
+../obj/https.o: https.cpp
 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
-../obj/vkapi.o: vkapi.cpp vkapi.h
+../obj/vkapi.o: vkapi.cpp
 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
 
 #######################################################################
