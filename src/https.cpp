@@ -46,3 +46,6 @@ size_t https::WriteMemoryCallback(char *ptr, size_t size, size_t nmemb, void *da
 char * https::getResponse() {
     return output.buffer;
 }
+std::string https::escape(std::string inputString) {
+    return std::string(curl_easy_escape(curl, inputString.c_str(), inputString.size()));
+}
