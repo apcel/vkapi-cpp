@@ -9,8 +9,7 @@ int main(int argc, char* argv[])
 
     // std::string message = std::string(argv[1]);
     // std::cout << message << std::endl;
-
-    // vkapiObject->messagesSend("", "",  "apcel", "", "", "message", "",  "", "", "", "", "");
+    vkapiObject->messagesSend("", "",  "apcel", "", "", "message", "",  "", "", "", "", "");
     vkapiObject->save();
     return 0;
 }
