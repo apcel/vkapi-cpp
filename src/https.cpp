@@ -23,6 +23,8 @@ int https::request(std::string method) {
 }
 
 void https::setup() {
+    output.buffer="\0";
+    output.size=0;
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&output);
     curl_easy_setopt(curl, CURLOPT_URL, method.c_str());
