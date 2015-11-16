@@ -5,6 +5,7 @@
 #namehelper.bash: /tmp/t4/messages.get -> messages.get
 CPP_OUTPUT="./api.cpp"
 H_OUTPUT="./api.h"
+rm -f $CPP_OUTPUT $H_OUTPUT
 
 
 PARAMS_LIST_DIR="/tmp/t4/"
