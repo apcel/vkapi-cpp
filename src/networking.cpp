@@ -54,12 +54,7 @@ size_t networking::WriteMemoryCallback(char *ptr, size_t size, size_t nmemb, voi
 {
     size_t realsize = size * nmemb;
     std::string * str = reinterpret_cast<std::string *>(data);
-
-    for (int i = 0; i < size * nmemb; i++) {
-        str->push_back(ptr[i]);
-    }
-
-    str->push_back('\0');
+    str->append(ptr, realsize);
     return realsize;
 }
 
