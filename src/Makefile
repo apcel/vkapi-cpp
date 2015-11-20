@@ -5,10 +5,14 @@ VKAPI=../bin/main
 
 CURL=`pkg-config libcurl --cflags --libs`
 
-LIBS=$(CURL)
+LIBS=$(CURL)\
+	-lpthread
 
 OBJS=../obj/main.o\
-	../obj/networking.o
+	../obj/networking.o\
+	../obj/vkapi.o\
+	../obj/parser.o\
+	../obj/mainDataClass.o
 	# ../obj/https.o\
 	# ../obj/vkapi.o
 
@@ -28,7 +32,12 @@ $(VKAPI): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
 ../obj/networking.o: networking.cpp
 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
-
+../obj/vkapi.o: vkapi.cpp
+	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
+../obj/parser.o: parser.cpp
+	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
+../obj/mainDataClass.o: mainDataClass.cpp
+	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
 # ../obj/https.o: https.cpp
 # 	$(CXX) $(CXXFLAGS) $(LIBS) -w -c $< -o $@
 # ../obj/vkapi.o: vkapi.cpp
