@@ -13,9 +13,7 @@ vkapi::vkapi(optionsClass * newOptions) {
 vkapi::~vkapi() {
     curl_global_cleanup();
     clearEscaped();
-    for (auto i : parsers) {
-        delete i;
-    }
+    killParsers();
     parsers.clear();
     delete preparedRequest;
 };
@@ -54,6 +52,11 @@ void vkapi::spawnParsers() {
     }
 }
 
+void vkapi::killParsers() {
+    for (auto i : parsers)
+        delete i;
+}
+
 void vkapi::prepareNextEntity() {
     preparedRequest = new requestEntity();
 
@@ -87,7 +90,7 @@ requestKeyType vkapi::createRequestKey(tokenType token) {
     // }
     std::hash<std::string> hash_fn;
 
-    size_t hash = hash_fn(token+ std::to_string(rand() % 1207));
+    size_t hash = hash_fn(token + std::to_string(rand() % 1207));
     // printf("%u\n", hash);
     return hash;
 };
