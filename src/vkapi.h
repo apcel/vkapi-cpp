@@ -32,6 +32,7 @@ public:
     void addParameter(parameterNameType, parameterNameValue);
     requestKeyType request();
 private:
+    void killParsers();
     requestKeyType createRequestKey(tokenType);
 
     dataVectorVector * STORAGE;
