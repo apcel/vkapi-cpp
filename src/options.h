@@ -2,7 +2,9 @@
 class optionsClass
 {
 public:
-    std::string hostname = "https://api.vk.com/method/";
+    optionsClass() {
+        networking = new net();
+    };
     int maxCalls = 3;
     bool multitoken = true;
     int parserThreads = 3;
@@ -15,6 +17,13 @@ public:
         system(sleepCmd.c_str());
     };
     bool defaultValid = true;
+    class net
+    {
+    public:
+        std::string hostname = "https://api.vk.com/method/";
+        bool needed = true;
+
+    } * networking;
 private:
     float toSleep;
 };
