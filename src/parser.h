@@ -10,6 +10,7 @@ public:
     ~parser();
     // parse(std::string)
 private:
+    void dumbParser();
     static void * _start(void *);
     void * Loop();
     pthread_t thread1;
