@@ -15,7 +15,7 @@ dataVectorVector::~dataVectorVector() {
 void dataVectorVector::addToQueue(requestEntity * adding) {
     /*define where to add*/
     // printf("addToQueue\n");
-    int * i = new int(1);
+    // int * i = new int(1);
     if (!options->multitoken) {
         if (dataVectorVectorEntity.empty()) {
             createNewQueue(adding);
