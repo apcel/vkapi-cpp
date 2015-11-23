@@ -18,19 +18,64 @@ using parameterNameValue = std::string;
 
 
 
-class responseFieldType
+// class responseFieldType
+// {
+// public:
+//     std::string key;
+//     std::string value;
+//     //TODO: value as responseField
+// };
+enum responseEntityState
 {
-public:
-    std::string key;
-    std::string value;
-    //TODO: value as responseField
+    nope,
+    inUse,          //is now being parsed
+    readyDumb,      //was parsed, but was not checked for other json object/array as value
+    completeScalar, //was parsed, was checked and does not contain json as value
+    completeObject, //contains an object
+    completeArray,  //contains an array
+    error,          //an error like non-closed bracked occured
+    complete        //was parsed, was checked and others. (???)
 };
-
 class responseEntityType
 {
 public:
-    std::vector<responseFieldType *> responseVector;
-    std::string rawResponse;
+    responseEntityType() {
+        rawResponse = new std::string;
+    };
+    ~responseEntityType() {
+        if (rawResponse != NULL)
+        {
+            delete rawResponse;
+        }
+        if (key != NULL)
+        {
+            delete key;
+        }
+        if (value != NULL)
+        {
+            delete value;
+        }
+        if (responseVector != NULL)
+        {
+            for (auto i : *responseVector)
+                delete i;
+            delete responseVector;
+        }
+        if (responseArray != NULL)
+        {
+            for (auto i : *responseArray)
+                delete i;
+            delete responseArray;
+        }
+    }
+
+    std::string * rawResponse = NULL;
+    std::string * key = NULL;
+    std::string * value = NULL;
+    std::vector<responseEntityType *> * responseVector = NULL;
+    std::vector<std::string *> * responseArray = NULL;
+    responseEntityState state = nope;
+
 };
 
 class requestParametersType
