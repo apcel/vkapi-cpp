@@ -22,7 +22,7 @@ networking::networking(int * requestCounterLocation, dataVectorType * ownVectorI
 networking::~networking() {
     curl_easy_cleanup(curl);
 
-    output.clear();
+    delete output;
 }
 void * networking::_start(void * that) {
     fprintf(stderr, "%s\n", "starting networking in another thread");
@@ -35,7 +35,7 @@ int networking::request(requestEntity * entity) {
     printf("%s\n", method.c_str());
     /*    setup();
         res = curl_easy_perform(curl);
-        printf("%s\t\n", output.c_str());//, curl_easy_strerror(res));
+        printf("%s\t\n", output->c_str());//, curl_easy_strerror(res));
         if (res != CURLE_OK)
             fprintf(stderr, "curl_easy_perform() failed: %s\n",
                     curl_easy_strerror(res));*/
@@ -45,7 +45,6 @@ int networking::request(requestEntity * entity) {
 }
 
 void networking::setup() {
-    output.clear();
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, reinterpret_cast<void *>(&output));
     curl_easy_setopt(curl, CURLOPT_URL, method.c_str());
@@ -86,7 +85,7 @@ void * networking::Loop() {
                 tempRequestEntity->state = stateType::in_networking;
                 request(tempRequestEntity);
                 tempRequestEntity->responseEntity->rawResponse = output;
-                std::cout << output.max_size() << "\t" << output.capacity() << "\n";
+                output = new std::string;
                 tempRequestEntity->state = stateType::responsed;
                 *counterWaitingRequests--;
 

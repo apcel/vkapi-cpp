@@ -41,7 +41,7 @@ private:
     long ms;
     // itimerval timer;
 
-    std::string output;
+    std::string * output;
     CURL *curl;
     CURLcode res;
     std::string method;
