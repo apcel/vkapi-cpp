@@ -5,6 +5,9 @@ public:
     optionsClass() {
         networking = new net();
     };
+    ~optionsClass() {
+        delete networking;
+    };
     int maxCalls = 3;
     bool multitoken = true;
     int parserThreads = 3;
