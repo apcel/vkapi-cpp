@@ -6,7 +6,7 @@ class parser
 {
     optionsClass * options;
 public:
-    parser(optionsClass *);
+    explicit parser(optionsClass *);
     ~parser();
     // parse(std::string)
 private:
