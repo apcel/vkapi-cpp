@@ -11,10 +11,10 @@ class dataVectorVector
 {
     optionsClass * options;
 
-    std::vector<dataVectorType *> dataVectorVectorEntity;
     std::vector<networking *> nerWorkersVector;
 public:
-    dataVectorVector(optionsClass * optionsInput);
+    std::vector<dataVectorType *> dataVectorVectorEntity;
+    explicit dataVectorVector(optionsClass * optionsInput);
     ~dataVectorVector();
 
     void addToQueue(requestEntity * adding);// Worker = new networking(&requested, this, options);
