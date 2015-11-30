@@ -17,8 +17,7 @@
 class vkapi
 {
 public:
-    vkapi();
-    vkapi(optionsClass *);
+    explicit vkapi(optionsClass *);
     ~vkapi();
 
     std::string escape(std::string);
@@ -31,7 +30,9 @@ public:
     void setToken(tokenType);
     void addParameter(parameterNameType, parameterNameValue);
     requestKeyType request();
+    void wait(requestKeyType);
 private:
+    requestEntity * find(requestKeyType);
     void killParsers();
     requestKeyType createRequestKey(tokenType);
 
