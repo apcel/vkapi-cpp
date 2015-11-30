@@ -10,7 +10,7 @@
 #include "networking.h"
 
 
-using requestKeyType = long;
+using requestKeyType = std::string;
 using methodType = std::string;
 using tokenType = std::string;
 using parameterNameType = std::string;
@@ -139,7 +139,7 @@ public:
     requestParametersType * requestParameters;
     tokenType token;
     responseEntityType * responseEntity;
-    bool valid;
+    bool valid = true;
     // = options->defaultValid;
     stateType state = nulled;
     std::string getUrl() {
