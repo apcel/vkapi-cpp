@@ -4,6 +4,8 @@ class optionsClass
 public:
     optionsClass() {
         networking = new net();
+        maxCalls = 3;multitoken = true;parserThreads = 3;defaultValid = true;
+
     };
     ~optionsClass() {
         delete networking;
@@ -23,6 +25,7 @@ public:
     class net
     {
     public:
+        net(): hostname("https://api.vk.com/method/"), needed(true) {};
         std::string hostname = "https://api.vk.com/method/";
         bool needed = true;
 
