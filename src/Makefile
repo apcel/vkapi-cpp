@@ -1,5 +1,7 @@
-CXX=g++
-CXXFLAGS= -g -O2 -std=c++11
+# CXX=g++
+# CXX=g++-4.9.3
+CXX=g++-6.0.0-alpha20150927
+CXXFLAGS= -g -std=c++11 -O2
 
 VKAPI=../bin/main
 
@@ -51,4 +53,5 @@ $(BUILD_DIRECTORIES):
 #######################################################################
 clean:
 	rm -f $(OBJS) $(VKAPI)
+
 
