@@ -1,14 +1,17 @@
 #pragma once
 #include "vkapi.h"
-vkapi::vkapi() {
-    vkapi(new optionsClass());
-};
+
 vkapi::vkapi(optionsClass * newOptions) {
     options = newOptions;
     parsers.clear();
     spawnParsers();
     prepareNextEntity();
     STORAGE = new dataVectorVector(options);
+    curl = curl_easy_init();
+    if (!curl) {
+        fprintf(stderr, "%s\n", "failed to init curl");
+    };
+
 }
 vkapi::~vkapi() {
     curl_global_cleanup();
@@ -71,10 +74,12 @@ void vkapi::addParameter(parameterNameType name, parameterNameValue value) {
 };
 requestKeyType vkapi::request() {
     validate();
-    STORAGE->addToQueue(preparedRequest);
     tokenType tempToken = preparedRequest->token;
+    requestKeyType requestKey = createRequestKey(tempToken);
+    preparedRequest->requestKey = requestKey;
+    STORAGE->addToQueue(preparedRequest);
     prepareNextEntity();
-    return createRequestKey(tempToken);
+    return requestKey;
 }
 void vkapi::validate() {
     preparedRequest->state = validated;
@@ -90,7 +95,34 @@ requestKeyType vkapi::createRequestKey(tokenType token) {
     // }
     std::hash<std::string> hash_fn;
 
-    size_t hash = hash_fn(token + std::to_string(rand() % 1207));
+    size_t inthash = hash_fn(token + std::to_string(rand() % 1207));
+    std::string hash = std::to_string(inthash);
     // printf("%u\n", hash);
     return hash;
 };
+requestEntity * vkapi::find(requestKeyType key) {
+    while (true) {
+        for (auto i : STORAGE->dataVectorVectorEntity)
+            for (auto j : i->dataVector)
+                if (j->requestKey == key) {
+                    return j;
+                } else {
+                    printf("%s\n", j->requestKey.c_str());
+                };
+        printf("FFUUUU\n");
+        options->sleep(100);
+
+    }
+    return STORAGE->dataVectorVectorEntity.back()->dataVector.back();
+}
+void vkapi::wait(requestKeyType key) {
+    requestEntity * entityLink = find(key);
+    // printf("hey\n");
+    while (entityLink == NULL)
+        printf("FUCK\n");
+    // while (entityLink->state < stateType::ready) {
+    while (entityLink->state < stateType::responsed) {
+        options->sleep(100);
+        std::cerr << "request with key == " + key  + " is still under work. State is: " + std::to_string(entityLink->state) << std::endl;
+    }
+}
